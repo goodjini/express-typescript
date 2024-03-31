@@ -16,18 +16,19 @@ const users = [
   { id: 2, name: 'K.Jiro', age: 45 }
 ];
 
+const router = express.Router();
 // ルーティング
-app.get('/users', (req, res) => {
+router.get('/users', (req, res) => {
   res.json(users);
 });
 
-app.post('/users', (req, res) => {
+router.post('/users', (req, res) => {
   const newUser = { id: users.length + 1, ...req.body };
   users.push(newUser);
   res.status(201).json(newUser);
 });
 
-app.put('/users/:id', (req, res) => {
+router.put('/users/:id', (req, res) => {
   const { id } = req.params;
   const index = users.findIndex(user => user.id === parseInt(id));
   if (index === -1) {
@@ -36,6 +37,8 @@ app.put('/users/:id', (req, res) => {
   users[index] = { ...users[index], ...req.body };
   res.json(users[index]);
 });
+
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
