@@ -9,17 +9,7 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-const logConfigure: log4js.Configuration = {
-  "appenders": {
-    "console": { "type": "console" },
-    "file": { "type": "file", "filename": "logs/server.log" }
-  },
-  "categories": {
-    "default": { "appenders": ["console", "file"], "level": "debug" }
-  }
-} 
-
-const logger = log4js.configure(logConfigure).getLogger();
+const logger = log4js.configure('src/config/log.config.json').getLogger();
 
 const corsOptions: CorsOptions = {
   origin: ['http://localhost:3000'],
